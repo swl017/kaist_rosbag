@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <arg name="record_script" default="$(find kaist_rosbag)/config/command_line_rosbag_record.sh" />
+    <arg name="record_folder" default="$(find kaist_rosbag)/bags" />
+
+    <node name="kaist_rosbag" pkg="kaist_rosbag" type="kaist_rosbag.py" output="screen">
+        <param name="record_script" value="$(arg record_script)" />
+        <param name="record_folder" value="$(arg record_folder)" />
+    </node>
+
+</launch>

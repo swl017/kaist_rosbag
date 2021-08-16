@@ -1,0 +1,1 @@
+rosbag record /some_trigger
