@@ -1,1 +1,1 @@
-rosbag record /some_trigger
+rosbag record /some_trigger /some_topic
