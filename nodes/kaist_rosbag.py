@@ -11,7 +11,7 @@ import subprocess
 import os
 import signal
 
-from std_msgs.msg import Bool
+from mavros_msgs.msg import State
 
 
 class RosbagRecord:
@@ -26,7 +26,7 @@ class RosbagRecord:
         self.verbose = rospy.get_param('~verbose')
         rospy.loginfo("trigger topic name: "+self.trigger_topic_name)
         
-        self.trigger_topic_subscriber = rospy.Subscriber(self.trigger_topic_name, Bool, self.trigger_subscriber_callback)
+        self.trigger_topic_subscriber = rospy.Subscriber(self.trigger_topic_name, State, self.trigger_subscriber_callback)
         
         self.trigger = False
         self.last_trigger = self.trigger
@@ -56,7 +56,7 @@ class RosbagRecord:
         if(self.verbose):
             rospy.loginfo("Recieving trgger")
         ## Do something to the trigger variable
-        self.trigger = msg.data
+        self.trigger = msg.armed
         if(self.trigger == True and self.last_trigger == False):
             rospy.loginfo("Start rosbag")
             self.start_recording_handler()

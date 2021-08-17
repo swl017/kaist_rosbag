@@ -1,1 +1,1 @@
-rosbag record /some_trigger /some_topic
+rosbag record --split --size=500 /some_trigger /some_topic
