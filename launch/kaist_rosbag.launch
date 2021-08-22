@@ -2,9 +2,9 @@
 
 <launch>
 
-    <arg name="trigger_topic_name" default="/some_trigger" />
+    <arg name="trigger_topic_name" default="/scout/mavros/state" />
     <arg name="record_script" default="$(find kaist_rosbag)/config/command_line_rosbag_record.sh" />
-    <arg name="record_folder" default="$(find kaist_rosbag)/bags" />
+    <arg name="record_folder" default="/media/kaist/T7" />
     <arg name="verbose" default="false" />
 
     <node name="kaist_rosbag" pkg="kaist_rosbag" type="kaist_rosbag.py" output="screen">
