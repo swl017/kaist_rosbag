@@ -1,10 +1,17 @@
 <?xml version="1.0"?>
+<!-- 
+    usage: 
+    export MISSION_NAME: coex_left
+    export DATE=$(date "+%Y-%m-%d_%H-%M-%S")
+    mkdir ${MISSION_NAME}_${DATE}
+    roslaunch kaist_rosbag kaist_rosbag.launch record_folder:=$(pwd)/{MISSION_NAME}_${DATE} 
+-->
 
 <launch>
 
     <arg name="trigger_topic_name" default="/scout/mavros/state" />
-    <arg name="record_script" default="$(find kaist_rosbag)/config/command_line_rosbag_record.sh" />
-    <arg name="record_folder" default="/media/kaist/T7" />
+    <arg name="record_script" default="$(find kaist_rosbag)/config/topics.sh" />
+    <arg name="record_folder" default="$(find kaist_rosbag)/bags" />
     <arg name="verbose" default="false" />
 
     <node name="kaist_rosbag" pkg="kaist_rosbag" type="kaist_rosbag.py" output="screen">
