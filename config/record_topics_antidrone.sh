@@ -1,4 +1,4 @@
-rosbag record --split --size=500 -b 3000 \
+rosbag record --split --size=1000 -b 3000 \
 /clicked_point \
 /diagnostics \
 /rosout \
