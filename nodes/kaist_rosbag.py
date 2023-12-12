@@ -11,7 +11,7 @@ import subprocess
 import os
 import signal
 
-from mavros_msgs.msg import State
+from std_msgs.msg import Bool
 
 
 class RosbagRecord:
@@ -23,13 +23,13 @@ class RosbagRecord:
             rospy.signal_shutdown(rospy.get_name() + ' no record script or folder specified.')
 
         self.trigger_topic_name = rospy.get_param('~trigger_topic_name')
+        self.trigger_topic_state = rospy.get_param('~trigger_topic_state')
         self.verbose = rospy.get_param('~verbose')
         rospy.loginfo("trigger topic name: "+self.trigger_topic_name)
         
-        self.trigger_topic_subscriber = rospy.Subscriber(self.trigger_topic_name, State, self.trigger_subscriber_callback)
+        self.trigger_topic_subscriber = rospy.Subscriber(self.trigger_topic_name, Bool, self.trigger_subscriber_callback)
         
-        self.trigger = False
-        self.last_trigger = self.trigger
+        self.last_trigger = False
 
     def terminate_ros_node(self, s):
         # Adapted from http://answers.ros.org/question/10714/start-and-stop-rosbag-within-a-python-script/
@@ -43,7 +43,7 @@ class RosbagRecord:
 
     def start_recording_handler(self):
         # Start recording.
-        command = "source " + self.record_script
+        command = "source " + self.record_script 
         self.p = subprocess.Popen(command, stdin=subprocess.PIPE, shell=True, cwd=self.record_folder,
                                     executable='/bin/bash')
 
@@ -55,16 +55,13 @@ class RosbagRecord:
     def trigger_subscriber_callback(self, msg):
         if(self.verbose):
             rospy.loginfo("Recieving trgger")
-        ## Do something to the trigger variable
-        self.trigger = msg.armed
-        if(self.trigger == True and self.last_trigger == False):
+        if(msg.data == self.trigger_topic_state and self.last_trigger != self.trigger_topic_state):
             rospy.loginfo("Start rosbag")
             self.start_recording_handler()
-        elif(self.trigger == False and self.last_trigger == True):
+        elif(msg.data != self.trigger_topic_state and self.last_trigger == self.trigger_topic_state):
             rospy.loginfo("Stop rosbag")
             self.stop_recording_handler()
-        self.last_trigger = self.trigger
-
+        self.last_trigger = msg.data
 
 if __name__ == '__main__':
     rospy.init_node('rosbag_record')

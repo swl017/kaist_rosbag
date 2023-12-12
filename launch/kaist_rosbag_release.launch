@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- 
+    usage: 
+    export DATE=$(date "+%Y-%m-%d_%H-%M-%S")
+    mkdir /home/hiwonder/mbz_ws/src/kaist_rosbag/bags/release_${DATE}
+    roslaunch kaist_rosbag kaist_rosbag.launch record_folder:=$/home/hiwonder/mbz_ws/src/kaist_rosbag/bags/release_${DATE}
+-->
+
+<launch>
+
+    <arg name="trigger_topic_name" default="/release_mission" />
+    <arg name="trigger_topic_state" default="true" />
+    <arg name="record_script" default="$(find kaist_rosbag)/config/record_topics_release.sh" />
+    <arg name="record_folder" default="$(find kaist_rosbag)/bags/release_mission" />
+    <arg name="verbose" default="false" />
+
+    <node name="release_mission_bag" pkg="kaist_rosbag" type="kaist_rosbag.py" output="screen">
+        <param name="record_script" value="$(arg record_script)" />
+        <param name="record_folder" value="$(arg record_folder)" />
+        <param name="trigger_topic_name" value="$(arg trigger_topic_name)" />
+        <param name="trigger_topic_state" value="$(arg trigger_topic_state)" />
+        <param name="verbose" value="$(arg verbose)" />
+    </node>
+
+</launch>
