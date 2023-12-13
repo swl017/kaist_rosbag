@@ -15,9 +15,10 @@ catkin_package(
 
 catkin_python_setup()
 
-install(PROGRAMS
-  nodes/kaist_rosbag.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+#install(PROGRAMS
+#  nodes/trigger_in.py
+#  nodes/trigger_state.py
+#  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 install(DIRECTORY launch/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch

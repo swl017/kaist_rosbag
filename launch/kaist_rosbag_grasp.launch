@@ -14,7 +14,7 @@
     <arg name="record_folder" default="$(find kaist_rosbag)/bags/grasping_mission" />
     <arg name="verbose" default="false" />
 
-    <node name="grasping_mission_bag" pkg="kaist_rosbag" type="kaist_rosbag.py" output="screen">
+    <node name="grasping_mission_bag" pkg="kaist_rosbag" type="trigger_state.py" output="screen">
         <param name="record_script" value="$(arg record_script)" />
         <param name="record_folder" value="$(arg record_folder)" />
         <param name="trigger_topic_name" value="$(arg trigger_topic_name)" />
