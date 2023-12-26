@@ -1,0 +1,9 @@
+<launch>
+    <arg name="record_bag" default="true" />
+
+    <group if="$(eval arg('record_bag') == true)">
+        <include file = "$(find kaist_rosbag)/launch/kaist_rosbag_grasp.launch"/> 
+        <include file = "$(find kaist_rosbag)/launch/kaist_rosbag_release.launch"/> 
+        <include file = "$(find kaist_rosbag)/launch/kaist_rosbag_trigger.launch"/> 
+    </group>
+</launch>
